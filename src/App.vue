@@ -5,16 +5,10 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 //Logout Function for LocalStorage
-/*function logout() {
+function logout() {
   store.commit('logout');
   alert('loggedout');
 }
-
-//Login Function for LocalStorage
-function login() {
-  store.commit('login', "testemail");
-  alert('loggedin');
-}*/
 
 onMounted(() => {
   store.commit('initializeStore');
@@ -25,16 +19,21 @@ onMounted(() => {
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
-<nav class="logout-navbar">
+<div class="background">
+
+
+<nav class="navbar">
     <div class="navbar-left">
         <span class="navbar-title">Bibliomania</span>
     </div>
     <div class="navbar-right">
         <router-link to="/login" class="navbar-link" v-if="!store.state.email">Login</router-link>
         <router-link to="/register" class="navbar-link" v-if="!store.state.email">Register</router-link>
+        <a href="/" class="navbar-link" v-if="store.state.email" @click="logout">Logout</a>
     </div>
 </nav>
 <router-view />
+</div>
 </template>
 
 
@@ -52,9 +51,14 @@ onMounted(() => {
   color: #2c3e50;
 }
 
+.background {
+  min-height: 100vh;
+  background-image: linear-gradient(-10deg, hsla(145, 90%, 94%, 1), hsla(145, 80%, 98%, 1));
+}
+
 body {
   margin: 0;
-  color: red
+  color: red;
 }
 
 nav {
@@ -70,12 +74,13 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-.logout-navbar {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #f2f2f2;
+    background-color:   hsla(145, 80%, 90%, 1);
+    border: 1px solid hsl(0, 0%, 47%);
 }
 
 .navbar-left {
